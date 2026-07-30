@@ -1,5 +1,10 @@
-import css from "@/app/notes/[id]/NoteDetails.module.css"
 import { fetchNoteById } from "@/lib/api";
+import {
+  dehydrate,
+  HydrationBoundary,
+  QueryClient,
+} from '@tanstack/react-query'
+import NoteDetailsClient from "./NoteDetails.client";
 
 
 interface NoteDetailsProps{
@@ -8,22 +13,18 @@ interface NoteDetailsProps{
 
 export default async function NoteDetails (props : NoteDetailsProps){
     const {id} = await props.params;
-    const note = await fetchNoteById(id);
-    const date = new Date(note.createdAt).toLocaleDateString();
+
+	const queryClient = new QueryClient()
+
+  await queryClient.prefetchQuery({
+    queryKey: ['notes', id],
+    queryFn: () => fetchNoteById(id),
+  })
 
     return(
-        <main className={css.main}>	
-	<div className={css.container}>
-		<div className={css.item}>
-		  <div className={css.header}>
-		    <h2>{note.title}</h2>
-		  </div>
-		  <p className={css.tag}>{note.tag}</p>
-		  <p className={css.content}>{note.content}</p>
-		  <p className={css.date}>{date}</p>
-		</div>
-	</div>
-</main>
+	<HydrationBoundary state={dehydrate(queryClient)}>
+      <NoteDetailsClient/>
+    </HydrationBoundary>
 
     );
 }
