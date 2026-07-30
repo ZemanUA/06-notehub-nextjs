@@ -1,14 +1,14 @@
-import css from "@/app/notes/[noteId]/NoteDetails.module.css"
+import css from "@/app/notes/[id]/NoteDetails.module.css"
 import { fetchNoteById } from "@/lib/api";
 
 
 interface NoteDetailsProps{
-    params: Promise <{noteId: string}>;
+    params: Promise <{id: string}>;
 }
 
 export default async function NoteDetails (props : NoteDetailsProps){
-    const {noteId} = await props.params;
-    const note = await fetchNoteById(noteId);
+    const {id} = await props.params;
+    const note = await fetchNoteById(id);
     const date = new Date(note.createdAt).toLocaleDateString();
 
     return(
