@@ -35,13 +35,13 @@ const [topic, setTopic] = useState('');
     return(
         <><header className={css.toolbar}>
           <SearchBox onSearch={handleSearch}/>
-          {/* {data && data.totalPages > 1 && (
+          {data && data.totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
               changePage={setCurrentPage}
               totalPages={data.totalPages}
             />
-          )} */}
+          )}
           <button className={css.button} onClick={openModal}>
             Create Task
           </button>

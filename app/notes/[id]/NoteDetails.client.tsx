@@ -9,6 +9,7 @@ export default function NoteDetailsClient() {
     const {data} = useQuery({
         queryKey: ["notes", id],
         queryFn: () => fetchNoteById(id),
+        refetchOnMount: false,
     })
    
 

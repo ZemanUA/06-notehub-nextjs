@@ -1,9 +1,6 @@
 import css from './Pagination.module.css';
-import ReactPaginateModule from 'react-paginate';
-import type { ReactPaginateProps } from 'react-paginate';
-import type { ComponentType } from 'react';
+import ReactPaginate from 'react-paginate';
 
-type ModuleWithDefault<T> = { default: T };
 
 interface PaginationProps {
   currentPage: number;
@@ -11,18 +8,11 @@ interface PaginationProps {
   totalPages: number;
 }
 
-
-
 export default function Pagination({
   currentPage,
   changePage,
   totalPages,
 }: PaginationProps) {
-  const ReactPaginate = (
-    ReactPaginateModule as unknown as ModuleWithDefault<
-      ComponentType<ReactPaginateProps>
-    >
-  ).default;
 
 
   return (
