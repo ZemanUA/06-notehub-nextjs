@@ -1,5 +1,5 @@
 import Link from "next/link"
-import css from "@/components/Footer.module.css"
+import css from "@/components/Footer/Footer.module.css"
 
 export default function Footer(){
     return( <footer className={css.footer}>
