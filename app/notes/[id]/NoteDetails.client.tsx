@@ -6,7 +6,7 @@ import { useParams } from 'next/navigation';
 export default function NoteDetailsClient() {
 
     const {id} = useParams<{id: string}>()
-    const {data, isLoading} = useQuery({
+    const {data, isLoading, isError} = useQuery({
         queryKey: ["notes", id],
         queryFn: () => fetchNoteById(id),
         refetchOnMount: false,
@@ -18,14 +18,15 @@ export default function NoteDetailsClient() {
       <main className={css.main}>
         <div className={css.container}>
           {isLoading && <p>Loading, please wait...</p>}
-          <div className={css.item}>
+          {isError && <p>Something went wrong.</p>}
+          {data&& !isError && <div className={css.item}>
             <div className={css.header}>
               <h2>{data?.title}</h2>
             </div>
             <p className={css.tag}>{data?.tag}</p>
             <p className={css.content}>{data?.content}</p>
             <p className={css.date}>{data?.createdAt}</p>
-          </div>
+          </div>}
         </div>
       </main>
     </>
