@@ -19,7 +19,7 @@ export default function NoteDetailsClient() {
         <div className={css.container}>
           {isLoading && <p>Loading, please wait...</p>}
           {isError && <p>Something went wrong.</p>}
-          {data&& !isError && <div className={css.item}>
+          {data && <div className={css.item}>
             <div className={css.header}>
               <h2>{data?.title}</h2>
             </div>
