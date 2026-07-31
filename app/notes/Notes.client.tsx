@@ -19,7 +19,7 @@ const [topic, setTopic] = useState('');
   // HTTP Request
   const handleSearch = useDebouncedCallback((nextTopic : string) => { setCurrentPage(1); return(setTopic(nextTopic))}, 500);
   
-  const { data } = useQuery({
+  const { data, isLoading, isError } = useQuery({
     queryKey: ['notes', topic, currentPage],
     queryFn: () => FetchNotes(topic, currentPage),
     placeholderData: keepPreviousData,
@@ -35,6 +35,8 @@ const [topic, setTopic] = useState('');
     return(
         <><header className={css.toolbar}>
           <SearchBox onSearch={handleSearch}/>
+          {isLoading && <p>Loading, please wait...</p>}
+          {isError && !data?.notes && <p>Something went wrong.</p>}
           {data && data.totalPages > 1 && (
             <Pagination
               currentPage={currentPage}
